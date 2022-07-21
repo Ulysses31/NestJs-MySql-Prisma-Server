@@ -2,9 +2,9 @@ import {
 	CallHandler,
 	ExecutionContext,
 	Injectable,
-	Logger,
 	NestInterceptor
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Observable, tap } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -13,11 +13,15 @@ export class DbRequestsInterceptor
 	extends PrismaService
 	implements NestInterceptor
 {
+	constructor(private config: ConfigService) {
+		super();
+	}
+
 	intercept(
 		context: ExecutionContext,
 		next: CallHandler
 	): Observable<any> {
-		console.log(context);
+		// console.log(context);
 
 		const reqObj = {
 			method: context.getArgs()[0].method as string,
@@ -31,12 +35,12 @@ export class DbRequestsInterceptor
 			ip: context.getArgs()[0].ip as string,
 			protocol: context.getArgs()[0].protocol as string,
 			secure: context.getArgs()[0].secure as string,
-			headers: context.getArgs()[0].headers as string
+			headers: context.getArgs()[0].headers as string,
+			environment: this.config.get('NODE_ENV'),
+			database: this.config.get('DATABASE_URL')
 		};
 
 		// Logger.log(reqObj);
-
-		console.log('NODE_ENV: ', process.env.NODE_ENV);
 
 		return next.handle().pipe(
 			tap(async (data) => {
@@ -57,6 +61,8 @@ export class DbRequestsInterceptor
 						Protocol: reqObj.protocol,
 						Secure: JSON.stringify(reqObj.secure),
 						Headers: JSON.stringify(reqObj.headers),
+						Environment: reqObj.environment,
+						Database: reqObj.database,
 						Response: JSON.stringify(data)
 					}
 				});

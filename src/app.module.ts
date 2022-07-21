@@ -14,12 +14,15 @@ import { ConfigModule } from '@nestjs/config';
 import { CategoriesModule } from './features/categories/categories.module';
 import { OrderDetailsModule } from './features/order-details/order-details.module';
 import { Module } from '@nestjs/common';
+import { getEnvPath } from './shared/shared';
+
+const envFilePath: string = getEnvPath(`${__dirname}`);
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: '.env'
+			envFilePath: envFilePath
 		}),
 		PrismaModule,
 		CategoriesModule,

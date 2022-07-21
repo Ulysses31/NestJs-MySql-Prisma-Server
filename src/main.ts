@@ -1,11 +1,11 @@
-import { DbRequestsInterceptor } from './core/db-requests.interceptor';
-import { TimeInterceptor } from './core/time.interceptor';
-import { Inject, VersioningType } from '@nestjs/common';
+import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerCustomOptions, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
-import { PrismaService } from './prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
+import { DbRequestsInterceptor } from './core/db-requests.interceptor';
+import { TimeInterceptor } from './core/time.interceptor';
+import { AppModule } from './app.module';
 
 const swaggerApiPrefix = `${process.env.APP_GLOBAL_PREFIX}`;
 
@@ -16,7 +16,7 @@ async function bootstrap() {
 	});
 
 	app.useGlobalInterceptors(
-		new DbRequestsInterceptor(),
+		new DbRequestsInterceptor(new ConfigService()),
 		new TimeInterceptor()
 	);
 

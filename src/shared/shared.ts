@@ -1,5 +1,6 @@
 import { HttpException, Logger, HttpStatus } from '@nestjs/common';
-import { PrismaPromise } from '@prisma/client';
+import { existsSync } from 'fs';
+import { resolve } from 'path';
 
 /**
  * Handle the response
@@ -21,9 +22,10 @@ export async function handleResponse(data: any): Promise<any> {
  * @returns HttpException
  */
 export function handleError(err: any): HttpException {
-	const newErr: string = err.meta?.cause?.length > 0 
-		? err.meta?.cause as string 
-		: err.message as string;
+	const newErr: string =
+		err.meta?.cause?.length > 0
+			? (err.meta?.cause as string)
+			: (err.message as string);
 	Logger.log(newErr);
 	return new HttpException(
 		{
@@ -31,4 +33,22 @@ export function handleError(err: any): HttpException {
 		},
 		HttpStatus.INTERNAL_SERVER_ERROR
 	);
+}
+
+/**
+ * Returns the environment file path
+ * @param dest string
+ * @returns string
+ */
+export function getEnvPath(dest: string): string {
+	const env: string | undefined = process.env.NODE_ENV.trim();
+	const fallback: string = resolve(`${dest}/.env`);
+	const filename: string = env ? `.env.${env}` : '.env.development';
+	let filePath: string = resolve(`${dest}/${filename}`);
+
+	if (!existsSync(filePath)) {
+		filePath = fallback;
+	}
+
+	return filePath;
 }

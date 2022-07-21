@@ -238,7 +238,9 @@ model server_requests {
   Protocol    String   @db.VarChar(50)
   Secure      String   @db.VarChar(50)
   Headers     String   @db.VarChar(255)
-  Response    String?  @db.VarChar(255)
   CreatedBy   String?  @default("admin") @db.VarChar(50)
   CreatedAt   DateTime @default(now())
+  Response    String?  @db.VarChar(255)
+  Database    String?  @db.VarChar(50)
+  Environment String?  @db.VarChar(50)
 }
