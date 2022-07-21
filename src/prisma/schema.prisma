@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,13 +7,238 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article {
-  id          Int       @id @default(autoincrement())
-  title       String    @unique
-  description String?
-  body        String
-  published   Boolean   @default(false)
-  createdBy   String?   
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? 
+model categories {
+  CategoryID   Int       @id @default(autoincrement())
+  CategoryName String    @db.VarChar(15)
+  Description  String?   @db.LongText
+  CreatedBy    String?   @db.VarChar(50)
+  CreatedAt    DateTime  @default(now())
+  UpdatedAt    DateTime?
+
+  @@index([CategoryName], map: "CategoryName")
+}
+
+model customercustomerdemo {
+  CustomerID     String    @db.Char(5)
+  CustomerTypeID String    @db.Char(10)
+  CreatedBy      String?   @db.VarChar(50)
+  CreatedAt      DateTime  @default(now())
+  UpdatedAt      DateTime?
+
+  @@id([CustomerID, CustomerTypeID])
+}
+
+model customerdemographics {
+  CustomerTypeID String    @id @db.Char(10)
+  CustomerDesc   String?   @db.LongText
+  CreatedBy      String?   @db.VarChar(50)
+  CreatedAt      DateTime  @default(now())
+  UpdatedAt      DateTime?
+}
+
+model customers {
+  CustomerID   String    @id @db.Char(5)
+  CompanyName  String    @db.VarChar(40)
+  ContactName  String?   @db.VarChar(30)
+  ContactTitle String?   @db.VarChar(30)
+  Address      String?   @db.VarChar(60)
+  City         String?   @db.VarChar(15)
+  Region       String?   @db.VarChar(15)
+  PostalCode   String?   @db.VarChar(10)
+  Country      String?   @db.VarChar(15)
+  Phone        String?   @db.VarChar(24)
+  Fax          String?   @db.VarChar(24)
+  CreatedBy    String?   @db.VarChar(50)
+  CreatedAt    DateTime  @default(now())
+  UpdatedAt    DateTime?
+
+  @@index([City], map: "City")
+  @@index([CompanyName], map: "CompanyName")
+  @@index([PostalCode], map: "PostalCode")
+  @@index([Region], map: "Region")
+}
+
+model employees {
+  EmployeeID      Int       @id
+  LastName        String    @db.VarChar(20)
+  FirstName       String    @db.VarChar(10)
+  Title           String?   @db.VarChar(30)
+  TitleOfCourtesy String?   @db.VarChar(25)
+  BirthDate       DateTime? @db.DateTime(0)
+  HireDate        DateTime? @db.DateTime(0)
+  Address         String?   @db.VarChar(60)
+  City            String?   @db.VarChar(15)
+  Region          String?   @db.VarChar(15)
+  PostalCode      String?   @db.VarChar(10)
+  Country         String?   @db.VarChar(15)
+  HomePhone       String?   @db.VarChar(24)
+  Extension       String?   @db.VarChar(4)
+  Notes           String?   @db.LongText
+  ReportsTo       Int?
+  PhotoPath       String?   @db.VarChar(255)
+  CreatedBy       String?   @db.VarChar(50)
+  CreatedAt       DateTime  @default(now())
+  UpdatedAt       DateTime?
+
+  @@index([LastName], map: "LastName")
+  @@index([PostalCode], map: "PostalCode")
+  @@index([ReportsTo], map: "ReportsTo")
+}
+
+model employeeterritories {
+  EmployeeID  Int
+  TerritoryID String    @db.VarChar(20)
+  CreatedBy   String?   @db.VarChar(50)
+  CreatedAt   DateTime  @default(now())
+  UpdatedAt   DateTime?
+
+  @@id([EmployeeID, TerritoryID])
+}
+
+model order_details {
+  OrderID   Int
+  ProductID Int
+  UnitPrice Decimal   @default(0.0000) @db.Decimal(19, 4)
+  Quantity  Int       @default(1) @db.SmallInt
+  Discount  Float     @default(0) @db.Float
+  CreatedBy String?   @db.VarChar(50)
+  CreatedAt DateTime  @default(now())
+  UpdatedAt DateTime?
+
+  @@id([OrderID, ProductID])
+  @@index([OrderID], map: "OrderID")
+  @@index([OrderID], map: "OrdersOrder_Details")
+  @@index([ProductID], map: "ProductID")
+  @@index([ProductID], map: "ProductsOrder_Details")
+  @@map("order details")
+}
+
+model orders {
+  OrderID        Int       @id
+  CustomerID     String?   @db.Char(5)
+  EmployeeID     Int?
+  OrderDate      DateTime? @db.DateTime(0)
+  RequiredDate   DateTime? @db.DateTime(0)
+  ShippedDate    DateTime? @db.DateTime(0)
+  ShipVia        Int?
+  Freight        Decimal?  @default(0.0000) @db.Decimal(19, 4)
+  ShipName       String?   @db.VarChar(40)
+  ShipAddress    String?   @db.VarChar(60)
+  ShipCity       String?   @db.VarChar(15)
+  ShipRegion     String?   @db.VarChar(15)
+  ShipPostalCode String?   @db.VarChar(10)
+  ShipCountry    String?   @db.VarChar(15)
+  CreatedBy      String?   @db.VarChar(50)
+  CreatedAt      DateTime  @default(now())
+  UpdatedAt      DateTime?
+
+  @@index([CustomerID], map: "CustomerID")
+  @@index([CustomerID], map: "CustomersOrders")
+  @@index([EmployeeID], map: "EmployeeID")
+  @@index([EmployeeID], map: "EmployeesOrders")
+  @@index([OrderDate], map: "OrderDate")
+  @@index([ShipPostalCode], map: "ShipPostalCode")
+  @@index([ShippedDate], map: "ShippedDate")
+  @@index([ShipVia], map: "ShippersOrders")
+}
+
+model products {
+  ProductID       Int       @id @default(autoincrement())
+  ProductName     String    @db.VarChar(40)
+  SupplierID      Int?
+  CategoryID      Int?
+  QuantityPerUnit String?   @db.VarChar(20)
+  UnitPrice       Decimal?  @default(0.0000) @db.Decimal(19, 4)
+  UnitsInStock    Int?      @default(0) @db.SmallInt
+  UnitsOnOrder    Int?      @default(0) @db.SmallInt
+  ReorderLevel    Int?      @default(0) @db.SmallInt
+  Discontinued    Boolean   @default(false)
+  CreatedBy       String?   @db.VarChar(50)
+  CreatedAt       DateTime  @default(now())
+  UpdatedAt       DateTime?
+
+  @@index([CategoryID], map: "CategoriesProducts")
+  @@index([CategoryID], map: "CategoryID")
+  @@index([ProductName], map: "ProductName")
+  @@index([SupplierID], map: "SupplierID")
+  @@index([SupplierID], map: "SuppliersProducts")
+}
+
+model region {
+  RegionID          Int       @id
+  RegionDescription String    @db.Char(50)
+  CreatedBy         String?   @db.VarChar(50)
+  CreatedAt         DateTime  @default(now())
+  UpdatedAt         DateTime?
+}
+
+model shippers {
+  ShipperID   Int       @id
+  CompanyName String    @db.VarChar(40)
+  Phone       String?   @db.VarChar(24)
+  CreatedBy   String?   @db.VarChar(50)
+  CreatedAt   DateTime  @default(now())
+  UpdatedAt   DateTime?
+}
+
+model suppliers {
+  Id           Int       @id @default(autoincrement())
+  CompanyName  String    @db.VarChar(40)
+  ContactName  String?   @db.VarChar(30)
+  ContactTitle String?   @db.VarChar(30)
+  Address      String?   @db.VarChar(60)
+  City         String?   @db.VarChar(15)
+  Region       String?   @db.VarChar(15)
+  PostalCode   String?   @db.VarChar(10)
+  Country      String?   @db.VarChar(15)
+  Phone        String?   @db.VarChar(24)
+  Fax          String?   @db.VarChar(24)
+  HomePage     String?   @db.LongText
+  CreatedBy    String?   @db.VarChar(50)
+  CreatedAt    DateTime  @default(now())
+  UpdatedAt    DateTime?
+
+  @@index([CompanyName], map: "CompanyName")
+  @@index([PostalCode], map: "PostalCode")
+}
+
+model territories {
+  TerritoryID          String    @id @db.VarChar(20)
+  TerritoryDescription String    @db.Char(50)
+  RegionID             Int
+  CreatedBy            String?   @db.VarChar(50)
+  CreatedAt            DateTime  @default(now())
+  UpdatedAt            DateTime?
+}
+
+model users {
+  Id            Int       @id @default(autoincrement())
+  Username      String    @db.VarChar(20)
+  Password      String    @db.VarChar(50)
+  Email         String    @db.VarChar(200)
+  Is_Active     Int       @default(1) @db.TinyInt
+  Access_Token  String?   @db.VarChar(200)
+  Refresh_Token String?   @db.VarChar(200)
+  CreatedBy     String?   @db.VarChar(50)
+  CreatedAt     DateTime  @default(now())
+  UpdatedAt     DateTime?
+}
+
+model server_requests {
+  Id          Int      @id @default(autoincrement())
+  Method      String   @db.VarChar(5)
+  BaseUrl     String   @db.VarChar(100)
+  OriginalUrl String   @db.VarChar(100)
+  Params      String   @db.VarChar(50)
+  Body        String   @db.VarChar(255)
+  Path        String   @db.VarChar(100)
+  Hostname    String   @db.VarChar(100)
+  HttpVersion String   @db.VarChar(10)
+  Ip          String   @db.VarChar(50)
+  Protocol    String   @db.VarChar(50)
+  Secure      String   @db.VarChar(50)
+  Headers     String   @db.VarChar(255)
+  Response    String?  @db.VarChar(255)
+  CreatedBy   String?  @default("admin") @db.VarChar(50)
+  CreatedAt   DateTime @default(now())
 }

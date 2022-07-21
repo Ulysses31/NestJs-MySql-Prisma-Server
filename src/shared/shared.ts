@@ -21,10 +21,13 @@ export async function handleResponse(data: any): Promise<any> {
  * @returns HttpException
  */
 export function handleError(err: any): HttpException {
-	Logger.log(err);
+	const newErr: string = err.meta?.cause?.length > 0 
+		? err.meta?.cause as string 
+		: err.message as string;
+	Logger.log(newErr);
 	return new HttpException(
 		{
-			error: err.message
+			error: newErr
 		},
 		HttpStatus.INTERNAL_SERVER_ERROR
 	);
