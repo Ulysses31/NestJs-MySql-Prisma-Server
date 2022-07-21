@@ -45,9 +45,7 @@ import { UpdateRegionDto } from './dto/update-region.dto';
 	description: 'Internal Server Error'
 })
 export class RegionsController {
-	constructor(
-		private readonly regionsService: RegionsService
-	) {}
+	constructor(private readonly regionsService: RegionsService) {}
 
 	@Get()
 	@Version('1')
@@ -117,10 +115,7 @@ export class RegionsController {
 		id: string,
 		@Body() updateRegionDto: UpdateRegionDto
 	): Promise<RegionEntity> {
-		return await this.regionsService.update(
-			+id,
-			updateRegionDto
-		);
+		return await this.regionsService.update(+id, updateRegionDto);
 	}
 
 	@Delete(':id')

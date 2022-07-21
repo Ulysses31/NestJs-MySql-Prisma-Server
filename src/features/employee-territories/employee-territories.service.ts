@@ -68,14 +68,17 @@ export class EmployeeTerritoriesService {
 		updateEmployeeTerritoryDto: UpdateEmployeeTerritoryDto
 	): Promise<EmployeeTerritoryEntity> {
 		try {
-			// const data = await this.prisma.employeeterritories.update({
-			// 	where: {
-			// 	 	EmployeeID_TerritoryID: id
-			// 	},
-			// 	data: updateEmployeeTerritoryDto
-			// });
-			// return await handleResponse(data);
-			return null;
+			const data = await this.prisma.employeeterritories.update({
+				where: {
+					Id_EmployeeID_TerritoryID: {
+						Id: id,
+						EmployeeID: updateEmployeeTerritoryDto.EmployeeID,
+						TerritoryID: updateEmployeeTerritoryDto.TerritoryID
+					}
+				},
+				data: updateEmployeeTerritoryDto
+			});
+			return await handleResponse(data);
 		} catch (err) {
 			throw handleError(err);
 		}
@@ -88,10 +91,20 @@ export class EmployeeTerritoriesService {
 	 */
 	async remove(id: number): Promise<EmployeeTerritoryEntity> {
 		try {
-			//	const data = await this.prisma.employeeterritories.delete({
-			//		where: { : id }
-			//	});
-			//	return await handleResponse(data);
+			const dto =
+				await this.prisma.employeeterritories.findFirstOrThrow({
+					where: { EmployeeID: id }
+				});
+			const data = await this.prisma.employeeterritories.delete({
+				where: {
+					Id_EmployeeID_TerritoryID: {
+						Id: id,
+						EmployeeID: dto.EmployeeID,
+						TerritoryID: dto.TerritoryID
+					}
+				}
+			});
+			return await handleResponse(data);
 			return null;
 		} catch (err) {
 			throw handleError(err);

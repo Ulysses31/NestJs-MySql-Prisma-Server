@@ -1,7 +1,7 @@
 import { CreateCategoryDto } from './create-category.dto';
 
 /**
- * UpdateCategoryDto 
+ * UpdateCategoryDto
  * @extends CreateCategoryDto
  */
 export class UpdateCategoryDto extends CreateCategoryDto {}

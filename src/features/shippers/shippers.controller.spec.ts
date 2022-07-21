@@ -3,18 +3,18 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ShippersService } from './shippers.service';
 
 describe('ShippersController', () => {
-  let controller: ShippersController;
+	let controller: ShippersController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [ShippersController],
-      providers: [ShippersService],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			controllers: [ShippersController],
+			providers: [ShippersService]
+		}).compile();
 
-    controller = module.get<ShippersController>(ShippersController);
-  });
+		controller = module.get<ShippersController>(ShippersController);
+	});
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+	it('should be defined', () => {
+		expect(controller).toBeDefined();
+	});
 });

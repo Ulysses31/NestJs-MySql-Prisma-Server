@@ -29,7 +29,6 @@ import {
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { PrismaPromise } from '@prisma/client';
 
 @Controller('customers')
 //@UseGuards(JwtAuthGuard)
@@ -46,9 +45,7 @@ import { PrismaPromise } from '@prisma/client';
 	description: 'Internal Server Error'
 })
 export class CustomersController {
-	constructor(
-		private readonly customersService: CustomersService
-	) {}
+	constructor(private readonly customersService: CustomersService) {}
 
 	@Get()
 	@Version('1')
@@ -118,10 +115,7 @@ export class CustomersController {
 		id: string,
 		@Body() updateCustomerDto: UpdateCustomerDto
 	): Promise<CustomerEntity> {
-		return await this.customersService.update(
-			id,
-			updateCustomerDto
-		);
+		return await this.customersService.update(id, updateCustomerDto);
 	}
 
 	@Delete(':id')

@@ -1,4 +1,4 @@
-import { CreateEmployeeTerritoryDto } from "./create-employee-territory.dto";
+import { CreateEmployeeTerritoryDto } from './create-employee-territory.dto';
 
 /**
  * UpdateEmployeeTerritoryDto

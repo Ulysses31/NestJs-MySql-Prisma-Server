@@ -29,7 +29,6 @@ import {
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { PrismaPromise } from '@prisma/client';
 
 @Controller('orders')
 //@UseGuards(JwtAuthGuard)

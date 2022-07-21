@@ -1,6 +1,11 @@
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerCustomOptions, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
+import {
+	DocumentBuilder,
+	SwaggerCustomOptions,
+	SwaggerDocumentOptions,
+	SwaggerModule
+} from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { DbRequestsInterceptor } from './core/db-requests.interceptor';
@@ -10,9 +15,14 @@ import { AppModule } from './app.module';
 const swaggerApiPrefix = `${process.env.APP_GLOBAL_PREFIX}`;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+	console.log(process.env.NODE_ENV);
+
+	const app = await NestFactory.create(AppModule, {
 		abortOnError: false,
-		logger: ['error', 'warn', 'debug', 'verbose', 'log']
+		logger:
+			process.env.NODE_ENV.trim() === 'development'
+				? ['error', 'warn', 'debug', 'verbose', 'log']
+				: ['error', 'warn', 'log']
 	});
 
 	app.useGlobalInterceptors(
@@ -20,16 +30,16 @@ async function bootstrap() {
 		new TimeInterceptor()
 	);
 
-  app.enableVersioning({
+	app.enableVersioning({
 		type: VersioningType.URI,
 		defaultVersion: '1'
 	});
 
-  app.use(cookieParser());
+	app.use(cookieParser());
 
-  // app.setGlobalPrefix('v1');
+	// app.setGlobalPrefix('v1');
 
-  const config = new DocumentBuilder()
+	const config = new DocumentBuilder()
 		.setTitle(process.env.SWAGGER_OPENAPI_TITLE)
 		.setDescription(process.env.SWAGGER_OPENAPI_DESCRIPTION)
 		.setVersion(process.env.SWAGGER_OPENAPI_VERSION)
@@ -76,7 +86,7 @@ async function bootstrap() {
 		docOptions
 	);
 
-  SwaggerModule.setup(swaggerApiPrefix, app, document, customOptions);
+	SwaggerModule.setup(swaggerApiPrefix, app, document, customOptions);
 	await app.listen(process.env.APP_PORT);
 	console.log(`Application is running on: ${await app.getUrl()}`);
 }

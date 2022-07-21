@@ -29,7 +29,6 @@ import {
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { PrismaPromise } from '@prisma/client';
 
 @Controller('employees')
 //@UseGuards(JwtAuthGuard)
@@ -46,9 +45,7 @@ import { PrismaPromise } from '@prisma/client';
 	description: 'Internal Server Error'
 })
 export class EmployeesController {
-	constructor(
-		private readonly employeesService: EmployeesService
-	) {}
+	constructor(private readonly employeesService: EmployeesService) {}
 
 	@Get()
 	@Version('1')
@@ -118,10 +115,7 @@ export class EmployeesController {
 		id: number,
 		@Body() updateEmployeeDto: UpdateEmployeeDto
 	): Promise<EmployeeEntity> {
-		return await this.employeesService.update(
-			id,
-			updateEmployeeDto
-		);
+		return await this.employeesService.update(id, updateEmployeeDto);
 	}
 
 	@Delete(':id')

@@ -7,6 +7,9 @@ import { employeeterritories as EmployeeTerritory } from '@prisma/client';
  */
 export class EmployeeTerritoryEntity implements EmployeeTerritory {
 	@ApiProperty({ type: Number })
+	Id: number;
+
+	@ApiProperty({ type: Number })
 	EmployeeID: number;
 
 	@ApiProperty({ type: String })

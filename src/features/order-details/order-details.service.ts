@@ -67,14 +67,17 @@ export class OrderDetailsService {
 		updateOrderDetailDto: UpdateOrderDetailDto
 	): Promise<OrderDetailEntity> {
 		try {
-			// const data = await this.prisma.order_details.update({
-			// 	where: {
-			// 		OrderDetailID: id
-			// 	},
-			// 	data: updateOrderDetailDto
-			// });
-			// return await handleResponse(data);
-			return null;
+			const data = await this.prisma.order_details.update({
+				where: {
+					Id_OrderID_ProductID: {
+						Id: id,
+						OrderID: updateOrderDetailDto.OrderID,
+						ProductID: updateOrderDetailDto.ProductID
+					}
+				},
+				data: updateOrderDetailDto
+			});
+			return await handleResponse(data);
 		} catch (err) {
 			throw handleError(err);
 		}
@@ -87,11 +90,19 @@ export class OrderDetailsService {
 	 */
 	async remove(id: number): Promise<OrderDetailEntity> {
 		try {
-			// const data = await this.prisma.order_details.delete({
-			// 	where: { OrderID_ProductID: id }
-			// });
-			// return await handleResponse(data);
-			return null;
+			const dto = await this.prisma.order_details.findFirstOrThrow({
+				where: { OrderID: id }
+			});
+			const data = await this.prisma.order_details.delete({
+				where: {
+					Id_OrderID_ProductID: {
+						Id: id,
+						OrderID: dto.OrderID,
+						ProductID: dto.ProductID
+					}
+				}
+			});
+			return await handleResponse(data);
 		} catch (err) {
 			throw handleError(err);
 		}

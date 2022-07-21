@@ -1,7 +1,7 @@
-import { CreateSupplierDto } from "./create-supplier.dto";
+import { CreateSupplierDto } from './create-supplier.dto';
 
 /**
- * UpdateSupplierDto 
+ * UpdateSupplierDto
  * @extends CreateSupplierDto
  */
 export class UpdateSupplierDto extends CreateSupplierDto {}

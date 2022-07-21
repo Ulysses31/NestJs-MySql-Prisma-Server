@@ -45,9 +45,7 @@ import { CreateSupplierDto } from './dto/create-supplier.dto';
 	description: 'Internal Server Error'
 })
 export class SuppliersController {
-	constructor(
-		private readonly suppliersService: SuppliersService
-	) {}
+	constructor(private readonly suppliersService: SuppliersService) {}
 
 	@Get()
 	@Version('1')
@@ -117,10 +115,7 @@ export class SuppliersController {
 		id: string,
 		@Body() updateSupplierDto: UpdateSupplierDto
 	): Promise<SupplierEntity> {
-		return await this.suppliersService.update(
-			+id,
-			updateSupplierDto
-		);
+		return await this.suppliersService.update(+id, updateSupplierDto);
 	}
 
 	@Delete(':id')

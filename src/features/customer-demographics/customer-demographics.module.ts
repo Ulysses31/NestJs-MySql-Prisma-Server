@@ -4,8 +4,8 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { CustomerDemographicsService } from './customer-demographics.service';
 
 @Module({
-  imports: [PrismaModule],
-  controllers: [CustomerDemographicsController],
-  providers: [CustomerDemographicsService]
+	imports: [PrismaModule],
+	controllers: [CustomerDemographicsController],
+	providers: [CustomerDemographicsService]
 })
 export class CustomerDemographicsModule {}

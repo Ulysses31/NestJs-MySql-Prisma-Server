@@ -86,16 +86,18 @@ model employees {
 }
 
 model employeeterritories {
+  Id          Int       @default(autoincrement())
   EmployeeID  Int
   TerritoryID String    @db.VarChar(20)
   CreatedBy   String?   @db.VarChar(50)
   CreatedAt   DateTime  @default(now())
   UpdatedAt   DateTime?
 
-  @@id([EmployeeID, TerritoryID])
+  @@id([Id, EmployeeID, TerritoryID])
 }
 
 model order_details {
+  Id        Int       @default(autoincrement())
   OrderID   Int
   ProductID Int
   UnitPrice Decimal   @default(0.0000) @db.Decimal(19, 4)
@@ -105,7 +107,7 @@ model order_details {
   CreatedAt DateTime  @default(now())
   UpdatedAt DateTime?
 
-  @@id([OrderID, ProductID])
+  @@id([Id, OrderID, ProductID])
   @@index([OrderID], map: "OrderID")
   @@index([OrderID], map: "OrdersOrder_Details")
   @@index([ProductID], map: "ProductID")

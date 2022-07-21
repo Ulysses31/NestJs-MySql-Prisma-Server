@@ -1,4 +1,4 @@
-import { CreateCustomerDto } from "./create-customer.dto";
+import { CreateCustomerDto } from './create-customer.dto';
 
 /**
  * UpdateCustomerDto

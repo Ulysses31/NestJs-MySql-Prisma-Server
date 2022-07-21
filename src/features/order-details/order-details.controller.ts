@@ -94,7 +94,9 @@ export class OrderDetailsController {
 	async create(
 		@Body() createOrderDetailDto: CreateOrderDetailDto
 	): Promise<OrderDetailEntity> {
-		return await this.orderDetailsService.create(createOrderDetailDto);
+		return await this.orderDetailsService.create(
+			createOrderDetailDto
+		);
 	}
 
 	@Patch(':id')

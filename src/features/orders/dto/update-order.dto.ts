@@ -1,6 +1,6 @@
 import { CreateOrderDto } from './create-order.dto';
 /**
- * UpdateOrderDto 
+ * UpdateOrderDto
  * @extends CreateOrderDto
  */
 export class UpdateOrderDto extends CreateOrderDto {}

@@ -51,7 +51,9 @@ export class CustomerDemographicsController {
 
 	@Get()
 	@Version('1')
-	@ApiOperation({ description: 'List of published customerDemographics' })
+	@ApiOperation({
+		description: 'List of published customerDemographics'
+	})
 	@ApiProduces('application/json', 'application/xml')
 	@ApiOkResponse({
 		description: 'OK Success',
@@ -92,14 +94,19 @@ export class CustomerDemographicsController {
 		type: CustomerDemographicsEntity
 	})
 	async create(
-		@Body() createCustomerDemographicsDto: CreateCustomerDemographicsDto
+		@Body()
+		createCustomerDemographicsDto: CreateCustomerDemographicsDto
 	): Promise<CustomerDemographicsEntity> {
-		return await this.customerDemographicsService.create(createCustomerDemographicsDto);
+		return await this.customerDemographicsService.create(
+			createCustomerDemographicsDto
+		);
 	}
 
 	@Patch(':id')
 	@Version('1')
-	@ApiOperation({ description: 'Update existing customer demographic' })
+	@ApiOperation({
+		description: 'Update existing customer demographic'
+	})
 	@ApiBody({ type: CustomerDemographicsEntity })
 	@ApiConsumes('application/json', 'application/xml')
 	@ApiProduces('application/json', 'application/xml')
@@ -115,7 +122,8 @@ export class CustomerDemographicsController {
 			})
 		)
 		id: string,
-		@Body() updateCustomerDemographicsDto: UpdateCustomerDemographicsDto
+		@Body()
+		updateCustomerDemographicsDto: UpdateCustomerDemographicsDto
 	): Promise<CustomerDemographicsEntity> {
 		return await this.customerDemographicsService.update(
 			id,
@@ -125,7 +133,9 @@ export class CustomerDemographicsController {
 
 	@Delete(':id')
 	@Version('1')
-	@ApiOperation({ description: 'Delete existing customer demographic' })
+	@ApiOperation({
+		description: 'Delete existing customer demographic'
+	})
 	@ApiProduces('application/json', 'application/xml')
 	@ApiOkResponse({
 		description: 'Successfully modified',

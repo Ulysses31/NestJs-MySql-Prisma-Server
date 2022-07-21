@@ -3,18 +3,20 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EmployeeTerritoriesController } from './employee-territories.controller';
 
 describe('EmployeeTerritoriesController', () => {
-  let controller: EmployeeTerritoriesController;
+	let controller: EmployeeTerritoriesController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [EmployeeTerritoriesController],
-      providers: [EmployeeTerritoriesService],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			controllers: [EmployeeTerritoriesController],
+			providers: [EmployeeTerritoriesService]
+		}).compile();
 
-    controller = module.get<EmployeeTerritoriesController>(EmployeeTerritoriesController);
-  });
+		controller = module.get<EmployeeTerritoriesController>(
+			EmployeeTerritoriesController
+		);
+	});
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+	it('should be defined', () => {
+		expect(controller).toBeDefined();
+	});
 });

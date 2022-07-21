@@ -1,7 +1,7 @@
-import { CreateTerritoryDto } from "./create-territory.dto";
+import { CreateTerritoryDto } from './create-territory.dto';
 
 /**
- * UpdateTerritoryDto 
+ * UpdateTerritoryDto
  * @extends CreateTerritoryDto
  */
 export class UpdateTerritoryDto extends CreateTerritoryDto {}

@@ -1,7 +1,7 @@
-import { CreateRegionDto } from "./create-region.dto";
+import { CreateRegionDto } from './create-region.dto';
 
 /**
- * UpdateRegionDto 
+ * UpdateRegionDto
  * @extends CreateRegionDto
  */
 export class UpdateRegionDto extends CreateRegionDto {}

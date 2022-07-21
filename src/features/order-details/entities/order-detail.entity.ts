@@ -8,6 +8,9 @@ import { Decimal } from '@prisma/client/runtime';
  */
 export class OrderDetailEntity implements OrderDetail {
 	@ApiProperty({ type: Number })
+	Id: number;
+
+	@ApiProperty({ type: Number })
 	OrderID: number;
 
 	@ApiProperty({ type: Number })

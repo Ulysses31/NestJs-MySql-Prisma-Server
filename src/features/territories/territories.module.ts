@@ -4,8 +4,8 @@ import { TerritoriesController } from './territories.controller';
 import { TerritoriesService } from './territories.service';
 
 @Module({
-  imports: [PrismaModule],
-  controllers: [TerritoriesController],
-  providers: [TerritoriesService]
+	imports: [PrismaModule],
+	controllers: [TerritoriesController],
+	providers: [TerritoriesService]
 })
 export class TerritoriesModule {}

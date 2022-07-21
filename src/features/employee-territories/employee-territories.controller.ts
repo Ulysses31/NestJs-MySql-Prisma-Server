@@ -51,7 +51,9 @@ export class EmployeeTerritoriesController {
 
 	@Get()
 	@Version('1')
-	@ApiOperation({ description: 'List of published employeeTerritories' })
+	@ApiOperation({
+		description: 'List of published employeeTerritories'
+	})
 	@ApiProduces('application/json', 'application/xml')
 	@ApiOkResponse({
 		description: 'OK Success',
@@ -94,7 +96,9 @@ export class EmployeeTerritoriesController {
 	async create(
 		@Body() createEmployeeTerritoryDto: CreateEmployeeTerritoryDto
 	): Promise<EmployeeTerritoryEntity> {
-		return await this.employeeTerritoriesService.create(createEmployeeTerritoryDto);
+		return await this.employeeTerritoriesService.create(
+			createEmployeeTerritoryDto
+		);
 	}
 
 	@Patch(':id')

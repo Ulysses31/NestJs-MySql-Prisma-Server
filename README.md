@@ -26,6 +26,15 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## NPM Installation
+```bash
+$ npm install @nestjs/common @nestjs/config @nestjs/core @nestjs/jwt @nestjs/mapped-types @nestjs/passport @nestjs/platform-express @nestjs/swagger @prisma/client cookie-parser mysql passport passport-jwt passport-local reflect-metadata rimraf rxjs swagger-ui-express
+```
+```bash
+$ npm install -D @nestjs/cli @nestjs/schematics @nestjs/testing @types/bcrypt @types/cookie-parser @types/express @types/jest @types/node @types/passport-jwt @types/passport-local @types/supertest @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-prettier eslint-plugin-prettier jest prettier prisma source-map-support supertest ts-jest ts-loader  ts-node tsconfig-paths typescript
+```
+
+
 ## Installation
 
 ```bash

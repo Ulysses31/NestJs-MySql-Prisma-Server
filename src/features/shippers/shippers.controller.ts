@@ -29,7 +29,6 @@ import {
 import { ShippersService } from './shippers.service';
 import { CreateShipperDto } from './dto/create-shipper.dto';
 import { UpdateShipperDto } from './dto/update-shipper.dto';
-import { PrismaPromise } from '@prisma/client';
 
 @Controller('shippers')
 //@UseGuards(JwtAuthGuard)
@@ -46,9 +45,7 @@ import { PrismaPromise } from '@prisma/client';
 	description: 'Internal Server Error'
 })
 export class ShippersController {
-	constructor(
-		private readonly shippersService: ShippersService
-	) {}
+	constructor(private readonly shippersService: ShippersService) {}
 
 	@Get()
 	@Version('1')
@@ -118,10 +115,7 @@ export class ShippersController {
 		id: string,
 		@Body() updateShipperDto: UpdateShipperDto
 	): Promise<ShipperEntity> {
-		return await this.shippersService.update(
-			+id,
-			updateShipperDto
-		);
+		return await this.shippersService.update(+id, updateShipperDto);
 	}
 
 	@Delete(':id')

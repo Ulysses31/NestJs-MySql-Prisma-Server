@@ -3,18 +3,20 @@ import { CustomerDemographicsController } from './customer-demographics.controll
 import { Test, TestingModule } from '@nestjs/testing';
 
 describe('CustomerDemographicsController', () => {
-  let controller: CustomerDemographicsController;
+	let controller: CustomerDemographicsController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [CustomerDemographicsController],
-      providers: [CustomerDemographicsService],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			controllers: [CustomerDemographicsController],
+			providers: [CustomerDemographicsService]
+		}).compile();
 
-    controller = module.get<CustomerDemographicsController>(CustomerDemographicsController);
-  });
+		controller = module.get<CustomerDemographicsController>(
+			CustomerDemographicsController
+		);
+	});
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+	it('should be defined', () => {
+		expect(controller).toBeDefined();
+	});
 });

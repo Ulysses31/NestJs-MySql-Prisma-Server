@@ -9,9 +9,9 @@ export class CreateCategoryDto {
 	@ApiProperty({ type: Number })
 	CategoryID: number;
 
-  @ApiProperty({ type: String })
-	CategoryName: string;
-  
 	@ApiProperty({ type: String })
-	Description: string;  
+	CategoryName: string;
+
+	@ApiProperty({ type: String })
+	Description: string;
 }

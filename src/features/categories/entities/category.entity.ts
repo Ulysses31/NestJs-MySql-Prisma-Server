@@ -6,21 +6,21 @@ import { categories as Category } from '@prisma/client';
  * @implements Category
  */
 export class CategoryEntity implements Category {
-  @ApiProperty({ type: Number })
+	@ApiProperty({ type: Number })
 	CategoryID: number;
 
-  @ApiProperty({ type: String })
+	@ApiProperty({ type: String })
 	CategoryName: string;
-  
+
 	@ApiProperty({ type: String })
-	Description: string;  
-  
+	Description: string;
+
 	@ApiProperty({ type: String })
-	CreatedBy: string;    
-  
+	CreatedBy: string;
+
 	@ApiProperty({ type: Date })
-	CreatedAt: Date;    
-  
+	CreatedAt: Date;
+
 	@ApiProperty({ type: Date })
-	UpdatedAt: Date;    
+	UpdatedAt: Date;
 }

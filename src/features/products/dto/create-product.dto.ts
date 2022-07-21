@@ -33,5 +33,5 @@ export class CreateProductDto {
 	ReorderLevel: number;
 
 	@ApiProperty({ type: Boolean })
-	Discontinued: boolean; 
+	Discontinued: boolean;
 }

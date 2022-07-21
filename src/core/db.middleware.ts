@@ -1,6 +1,5 @@
 import { Injectable, NestMiddleware, Logger } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { json } from 'body-parser'
 
 /**
  * Database middleware
