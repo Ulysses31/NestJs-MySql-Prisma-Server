@@ -59,6 +59,18 @@ export class OrdersController {
 		return await this.ordersService.findAll();
 	}
 
+	@Get('last')
+	@Version('1')
+	@ApiOperation({ description: 'Get the last order' })
+	@ApiProduces('application/json', 'application/xml')
+	@ApiOkResponse({
+		description: 'OK Success',
+		type: OrderEntity
+	})
+	async findLast(): Promise<OrderEntity> {
+		return await this.ordersService.findLast();
+	}
+
 	@Get(':id')
 	@Version('1')
 	@ApiOperation({ description: 'Get order by id' })

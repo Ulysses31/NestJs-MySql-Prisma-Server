@@ -9,4 +9,7 @@ export class CreateRegionDto {
 
 	@ApiProperty({ type: String })
 	RegionDescription: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

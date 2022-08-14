@@ -38,6 +38,18 @@ export class OrdersService {
 		}
 	}
 
+	async findLast(): Promise<OrderEntity> {
+		try {
+			const data = await this.prisma.orders.findMany({
+				orderBy: { OrderID: 'desc' },
+				take: 1
+			});
+			return await handleResponse(data);
+		} catch (err) {
+			throw handleError(err);
+		}
+	}
+
 	/**
 	 * Create new orders
 	 * @param createOrderDto CreateOrderDto
@@ -45,6 +57,34 @@ export class OrdersService {
 	 */
 	async create(createOrderDto: CreateOrderDto): Promise<OrderEntity> {
 		try {
+			//###### get last order id ######
+			const dtoLst = await this.prisma.orders.findMany({
+				orderBy: { OrderID: 'desc' },
+				take: 1
+			});
+			const dto: OrderEntity = dtoLst[0];
+			const newOrderId: number = ++dto.OrderID;
+			createOrderDto.OrderID = newOrderId;
+			//###### get last order id ######
+
+			if (createOrderDto.EmployeeID) {
+				createOrderDto.EmployeeID = parseInt(
+					createOrderDto.EmployeeID.toString()
+				);
+			}
+			if (createOrderDto.OrderDate) {
+				createOrderDto.OrderDate = new Date(createOrderDto.OrderDate);
+			}
+			if (createOrderDto.RequiredDate) {
+				createOrderDto.RequiredDate = new Date(
+					createOrderDto.RequiredDate
+				);
+			}
+			if (createOrderDto.ShippedDate) {
+				createOrderDto.ShippedDate = new Date(
+					createOrderDto.ShippedDate
+				);
+			}
 			const data = await this.prisma.orders.create({
 				data: createOrderDto
 			});
@@ -65,6 +105,25 @@ export class OrdersService {
 		updateOrderDto: UpdateOrderDto
 	): Promise<OrderEntity> {
 		try {
+			updateOrderDto.UpdatedAt = new Date();
+			if (updateOrderDto.EmployeeID) {
+				updateOrderDto.EmployeeID = parseInt(
+					updateOrderDto.EmployeeID.toString()
+				);
+			}
+			if (updateOrderDto.OrderDate) {
+				updateOrderDto.OrderDate = new Date(updateOrderDto.OrderDate);
+			}
+			if (updateOrderDto.RequiredDate) {
+				updateOrderDto.RequiredDate = new Date(
+					updateOrderDto.RequiredDate
+				);
+			}
+			if (updateOrderDto.ShippedDate) {
+				updateOrderDto.ShippedDate = new Date(
+					updateOrderDto.ShippedDate
+				);
+			}
 			const data = await this.prisma.orders.update({
 				where: {
 					OrderID: id

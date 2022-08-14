@@ -67,6 +67,7 @@ export class CategoriesService {
 		updateCategoryDto: UpdateCategoryDto
 	): Promise<CategoryEntity> {
 		try {
+			updateCategoryDto.UpdatedAt = new Date();
 			const data = await this.prisma.categories.update({
 				where: {
 					CategoryID: id

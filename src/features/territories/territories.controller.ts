@@ -70,12 +70,7 @@ export class TerritoriesController {
 		type: TerritoryEntity
 	})
 	async findOne(
-		@Param(
-			'id',
-			new ParseIntPipe({
-				errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE
-			})
-		)
+		@Param('id')
 		id: string
 	): Promise<TerritoryEntity> {
 		return await this.territoriesService.findOne(id);
@@ -108,12 +103,7 @@ export class TerritoriesController {
 		type: TerritoryEntity
 	})
 	async update(
-		@Param(
-			'id',
-			new ParseIntPipe({
-				errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE
-			})
-		)
+		@Param('id')
 		id: string,
 		@Body() updateTerritoryDto: UpdateTerritoryDto
 	): Promise<TerritoryEntity> {
@@ -132,12 +122,7 @@ export class TerritoriesController {
 		type: TerritoryEntity
 	})
 	async remove(
-		@Param(
-			'id',
-			new ParseIntPipe({
-				errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE
-			})
-		)
+		@Param('id')
 		id: string
 	): Promise<TerritoryEntity> {
 		return await this.territoriesService.remove(id);

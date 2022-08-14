@@ -14,4 +14,7 @@ export class CreateCategoryDto {
 
 	@ApiProperty({ type: String })
 	Description: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

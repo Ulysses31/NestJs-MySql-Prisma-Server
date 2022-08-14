@@ -36,4 +36,7 @@ export class CreateCustomerDto {
 
 	@ApiProperty({ type: String })
 	Fax: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

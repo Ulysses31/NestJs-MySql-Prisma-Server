@@ -21,7 +21,7 @@ export class DbRequestsInterceptor
 		context: ExecutionContext,
 		next: CallHandler
 	): Observable<any> {
-		// console.log(context);
+		// console.log(context.getArgs());
 
 		const reqObj = {
 			method: context.getArgs()[0].method as string,

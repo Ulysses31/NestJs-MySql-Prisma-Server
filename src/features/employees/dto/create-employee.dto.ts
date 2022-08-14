@@ -54,4 +54,7 @@ export class CreateEmployeeDto {
 
 	@ApiProperty({ type: String })
 	PhotoPath: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

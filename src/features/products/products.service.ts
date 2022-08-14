@@ -67,6 +67,7 @@ export class ProductsService {
 		updateProductDto: UpdateProductDto
 	): Promise<ProductEntity> {
 		try {
+			updateProductDto.UpdatedAt = new Date();
 			const data = await this.prisma.products.update({
 				where: {
 					ProductID: id

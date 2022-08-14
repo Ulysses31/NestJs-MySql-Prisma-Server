@@ -21,4 +21,7 @@ export class CreateUserDto {
 
 	@ApiProperty({ type: String })
 	Refresh_Token: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

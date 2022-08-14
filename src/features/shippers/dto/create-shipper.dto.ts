@@ -12,4 +12,7 @@ export class CreateShipperDto {
 
 	@ApiProperty({ type: String })
 	Phone: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

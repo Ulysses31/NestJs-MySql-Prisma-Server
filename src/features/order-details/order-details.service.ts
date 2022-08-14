@@ -30,7 +30,7 @@ export class OrderDetailsService {
 	async findOne(id: number): Promise<OrderDetailEntity> {
 		try {
 			const data = await this.prisma.order_details.findFirstOrThrow({
-				where: { OrderID: id }
+				where: { Id: id }
 			});
 			return await handleResponse(data);
 		} catch (err) {
@@ -47,6 +47,27 @@ export class OrderDetailsService {
 		createOrderDetailDto: CreateOrderDetailDto
 	): Promise<OrderDetailEntity> {
 		try {
+			if (createOrderDetailDto.ProductID) {
+				createOrderDetailDto.ProductID = parseInt(
+					createOrderDetailDto.ProductID.toString()
+				);
+			}
+			if (createOrderDetailDto.Quantity) {
+				createOrderDetailDto.Quantity = parseInt(
+					createOrderDetailDto.Quantity.toString()
+				);
+			}
+			if (createOrderDetailDto.OrderID) {
+				createOrderDetailDto.OrderID = parseInt(
+					createOrderDetailDto.OrderID.toString()
+				);
+			}
+			if (createOrderDetailDto.Discount) {
+				createOrderDetailDto.Discount = parseFloat(
+					createOrderDetailDto.Discount.toString()
+				);
+			}
+
 			const data = await this.prisma.order_details.create({
 				data: createOrderDetailDto
 			});
@@ -67,12 +88,39 @@ export class OrderDetailsService {
 		updateOrderDetailDto: UpdateOrderDetailDto
 	): Promise<OrderDetailEntity> {
 		try {
+			updateOrderDetailDto.UpdatedAt = new Date();
+
+			const dto = await this.prisma.order_details.findFirstOrThrow({
+				where: { Id: id }
+			});
+
+			if (updateOrderDetailDto.ProductID) {
+				updateOrderDetailDto.ProductID = parseInt(
+					updateOrderDetailDto.ProductID.toString()
+				);
+			}
+			if (updateOrderDetailDto.Quantity) {
+				updateOrderDetailDto.Quantity = parseInt(
+					updateOrderDetailDto.Quantity.toString()
+				);
+			}
+			if (updateOrderDetailDto.OrderID) {
+				updateOrderDetailDto.OrderID = parseInt(
+					updateOrderDetailDto.OrderID.toString()
+				);
+			}
+			if (updateOrderDetailDto.Discount) {
+				updateOrderDetailDto.Discount = parseFloat(
+					updateOrderDetailDto.Discount.toString()
+				);
+			}
+
 			const data = await this.prisma.order_details.update({
 				where: {
 					Id_OrderID_ProductID: {
 						Id: id,
-						OrderID: updateOrderDetailDto.OrderID,
-						ProductID: updateOrderDetailDto.ProductID
+						OrderID: dto.OrderID,
+						ProductID: dto.ProductID
 					}
 				},
 				data: updateOrderDetailDto
@@ -91,7 +139,7 @@ export class OrderDetailsService {
 	async remove(id: number): Promise<OrderDetailEntity> {
 		try {
 			const dto = await this.prisma.order_details.findFirstOrThrow({
-				where: { OrderID: id }
+				where: { Id: id }
 			});
 			const data = await this.prisma.order_details.delete({
 				where: {

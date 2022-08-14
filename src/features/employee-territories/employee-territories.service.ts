@@ -31,7 +31,7 @@ export class EmployeeTerritoriesService {
 		try {
 			const data =
 				await this.prisma.employeeterritories.findFirstOrThrow({
-					where: { EmployeeID: id }
+					where: { Id: id }
 				});
 			return await handleResponse(data);
 		} catch (err) {
@@ -48,6 +48,11 @@ export class EmployeeTerritoriesService {
 		createEmployeeTerritoryDto: CreateEmployeeTerritoryDto
 	): Promise<EmployeeTerritoryEntity> {
 		try {
+			if (createEmployeeTerritoryDto.EmployeeID) {
+				createEmployeeTerritoryDto.EmployeeID = parseInt(
+					createEmployeeTerritoryDto.EmployeeID.toString()
+				);
+			}
 			const data = await this.prisma.employeeterritories.create({
 				data: createEmployeeTerritoryDto
 			});
@@ -68,12 +73,19 @@ export class EmployeeTerritoriesService {
 		updateEmployeeTerritoryDto: UpdateEmployeeTerritoryDto
 	): Promise<EmployeeTerritoryEntity> {
 		try {
+			updateEmployeeTerritoryDto.UpdatedAt = new Date();
+			if (updateEmployeeTerritoryDto.EmployeeID) {
+				updateEmployeeTerritoryDto.EmployeeID = parseInt(
+					updateEmployeeTerritoryDto.EmployeeID.toString()
+				);
+			}
+			const dto: any = await this.findOne(id);
 			const data = await this.prisma.employeeterritories.update({
 				where: {
 					Id_EmployeeID_TerritoryID: {
-						Id: id,
-						EmployeeID: updateEmployeeTerritoryDto.EmployeeID,
-						TerritoryID: updateEmployeeTerritoryDto.TerritoryID
+						Id: dto.data.Id,
+						EmployeeID: dto.data.EmployeeID,
+						TerritoryID: dto.data.TerritoryID
 					}
 				},
 				data: updateEmployeeTerritoryDto
@@ -93,7 +105,7 @@ export class EmployeeTerritoriesService {
 		try {
 			const dto =
 				await this.prisma.employeeterritories.findFirstOrThrow({
-					where: { EmployeeID: id }
+					where: { Id: id }
 				});
 			const data = await this.prisma.employeeterritories.delete({
 				where: {

@@ -9,4 +9,7 @@ export class CreateEmployeeTerritoryDto {
 
 	@ApiProperty({ type: String })
 	TerritoryID: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `region` MODIFY `RegionID` INTEGER NOT NULL AUTO_INCREMENT;

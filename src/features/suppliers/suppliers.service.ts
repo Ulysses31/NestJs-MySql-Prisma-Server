@@ -67,6 +67,7 @@ export class SuppliersService {
 		updateSupplierDto: UpdateSupplierDto
 	): Promise<SupplierEntity> {
 		try {
+			updateSupplierDto.UpdatedAt = new Date();
 			const data = await this.prisma.suppliers.update({
 				where: {
 					Id: id

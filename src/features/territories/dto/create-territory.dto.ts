@@ -12,4 +12,7 @@ export class CreateTerritoryDto {
 
 	@ApiProperty({ type: Number })
 	RegionID: number;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

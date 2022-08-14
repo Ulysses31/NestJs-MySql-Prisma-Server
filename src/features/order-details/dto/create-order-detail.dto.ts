@@ -19,4 +19,7 @@ export class CreateOrderDetailDto {
 
 	@ApiProperty({ type: Number })
 	Discount: number;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

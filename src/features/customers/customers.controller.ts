@@ -68,12 +68,7 @@ export class CustomersController {
 		type: CustomerEntity
 	})
 	async findOne(
-		@Param(
-			'id',
-			new ParseIntPipe({
-				errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE
-			})
-		)
+		@Param('id')
 		id: string
 	): Promise<CustomerEntity> {
 		return await this.customersService.findOne(id);
@@ -106,12 +101,7 @@ export class CustomersController {
 		type: CustomerEntity
 	})
 	async update(
-		@Param(
-			'id',
-			new ParseIntPipe({
-				errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE
-			})
-		)
+		@Param('id')
 		id: string,
 		@Body() updateCustomerDto: UpdateCustomerDto
 	): Promise<CustomerEntity> {
@@ -127,12 +117,7 @@ export class CustomersController {
 		type: CustomerEntity
 	})
 	async remove(
-		@Param(
-			'id',
-			new ParseIntPipe({
-				errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE
-			})
-		)
+		@Param('id')
 		id: string
 	): Promise<CustomerEntity> {
 		return await this.customersService.remove(id);

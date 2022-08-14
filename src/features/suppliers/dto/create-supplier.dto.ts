@@ -39,4 +39,7 @@ export class CreateSupplierDto {
 
 	@ApiProperty({ type: String })
 	HomePage: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

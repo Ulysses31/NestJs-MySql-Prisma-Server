@@ -47,6 +47,21 @@ export class EmployeesService {
 		createEmployeeDto: CreateEmployeeDto
 	): Promise<EmployeeEntity> {
 		try {
+			if (createEmployeeDto.BirthDate) {
+				createEmployeeDto.BirthDate = new Date(
+					createEmployeeDto.BirthDate
+				);
+			}
+			if (createEmployeeDto.HireDate) {
+				createEmployeeDto.HireDate = new Date(
+					createEmployeeDto.HireDate
+				);
+			}
+			if (createEmployeeDto.ReportsTo) {
+				createEmployeeDto.ReportsTo = parseInt(
+					createEmployeeDto.ReportsTo.toString()
+				);
+			}
 			const data = await this.prisma.employees.create({
 				data: createEmployeeDto
 			});
@@ -67,6 +82,22 @@ export class EmployeesService {
 		updateEmployeeDto: UpdateEmployeeDto
 	): Promise<EmployeeEntity> {
 		try {
+			updateEmployeeDto.UpdatedAt = new Date();
+			if (updateEmployeeDto.BirthDate) {
+				updateEmployeeDto.BirthDate = new Date(
+					updateEmployeeDto.BirthDate
+				);
+			}
+			if (updateEmployeeDto.HireDate) {
+				updateEmployeeDto.HireDate = new Date(
+					updateEmployeeDto.HireDate
+				);
+			}
+			if (updateEmployeeDto.ReportsTo) {
+				updateEmployeeDto.ReportsTo = parseInt(
+					updateEmployeeDto.ReportsTo.toString()
+				);
+			}
 			const data = await this.prisma.employees.update({
 				where: {
 					EmployeeID: id

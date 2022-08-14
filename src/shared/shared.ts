@@ -1,4 +1,4 @@
-import { HttpException, Logger, HttpStatus } from '@nestjs/common';
+import { HttpException, Logger, HttpStatus, InternalServerErrorException } from '@nestjs/common';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 
@@ -21,17 +21,15 @@ export async function handleResponse(data: any): Promise<any> {
  * @param err any
  * @returns HttpException
  */
-export function handleError(err: any): HttpException {
+export function handleError(err: any): InternalServerErrorException {
 	const newErr: string =
 		err.meta?.cause?.length > 0
 			? (err.meta?.cause as string)
 			: (err.message as string);
 	Logger.log(newErr);
-	return new HttpException(
-		{
-			error: newErr
-		},
-		HttpStatus.INTERNAL_SERVER_ERROR
+	return new InternalServerErrorException(
+		HttpStatus.INTERNAL_SERVER_ERROR,
+		newErr
 	);
 }
 

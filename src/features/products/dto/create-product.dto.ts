@@ -34,4 +34,7 @@ export class CreateProductDto {
 
 	@ApiProperty({ type: Boolean })
 	Discontinued: boolean;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

@@ -11,4 +11,7 @@ export class CreateCustomerDemographicsDto {
 
 	@ApiProperty({ type: String })
 	CustomerDesc: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }

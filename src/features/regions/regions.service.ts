@@ -67,6 +67,7 @@ export class RegionsService {
 		updateRegionDto: UpdateRegionDto
 	): Promise<RegionEntity> {
 		try {
+			updateRegionDto.UpdatedAt = new Date();
 			const data = await this.prisma.region.update({
 				where: {
 					RegionID: id

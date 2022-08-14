@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `employees` MODIFY `EmployeeID` INTEGER NOT NULL AUTO_INCREMENT;

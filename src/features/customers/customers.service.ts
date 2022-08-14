@@ -67,6 +67,7 @@ export class CustomersService {
 		updateCustomerDto: UpdateCustomerDto
 	): Promise<CustomerEntity> {
 		try {
+			updateCustomerDto.UpdatedAt = new Date();
 			const data = await this.prisma.customers.update({
 				where: {
 					CustomerID: id

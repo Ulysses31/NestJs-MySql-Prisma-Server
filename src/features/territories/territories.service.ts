@@ -47,11 +47,16 @@ export class TerritoriesService {
 		createTerritoryDto: CreateTerritoryDto
 	): Promise<TerritoryEntity> {
 		try {
+			if (typeof createTerritoryDto.RegionID === 'string') {
+				createTerritoryDto.RegionID = parseInt(
+					createTerritoryDto.RegionID
+				);
+			}
 			const data = await this.prisma.territories.create({
 				data: createTerritoryDto
 			});
 			return await handleResponse(data);
-		} catch (err) {
+		} catch (err: any) {
 			throw handleError(err);
 		}
 	}
@@ -67,6 +72,7 @@ export class TerritoriesService {
 		updateTerritoryDto: UpdateTerritoryDto
 	): Promise<TerritoryEntity> {
 		try {
+			updateTerritoryDto.UpdatedAt = new Date();
 			const data = await this.prisma.territories.update({
 				where: {
 					TerritoryID: id

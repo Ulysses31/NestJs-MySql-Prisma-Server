@@ -59,7 +59,7 @@ model customers {
 }
 
 model employees {
-  EmployeeID      Int       @id
+  EmployeeID      Int       @id @default(autoincrement())
   LastName        String    @db.VarChar(20)
   FirstName       String    @db.VarChar(10)
   Title           String?   @db.VarChar(30)
@@ -167,7 +167,7 @@ model products {
 }
 
 model region {
-  RegionID          Int       @id
+  RegionID          Int       @id @default(autoincrement())
   RegionDescription String    @db.Char(50)
   CreatedBy         String?   @db.VarChar(50)
   CreatedAt         DateTime  @default(now())
@@ -175,7 +175,7 @@ model region {
 }
 
 model shippers {
-  ShipperID   Int       @id
+  ShipperID   Int       @id @default(autoincrement())
   CompanyName String    @db.VarChar(40)
   Phone       String?   @db.VarChar(24)
   CreatedBy   String?   @db.VarChar(50)

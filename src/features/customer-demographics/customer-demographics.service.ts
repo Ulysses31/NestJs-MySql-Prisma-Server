@@ -65,14 +65,15 @@ export class CustomerDemographicsService {
 	 */
 	async update(
 		id: string,
-		updateCcustomerDemographicsDto: UpdateCustomerDemographicsDto
+		updateCustomerDemographicsDto: UpdateCustomerDemographicsDto
 	): Promise<CustomerDemographicsEntity> {
 		try {
+			updateCustomerDemographicsDto.UpdatedAt = new Date();
 			const data = await this.prisma.customerdemographics.update({
 				where: {
 					CustomerTypeID: id
 				},
-				data: updateCcustomerDemographicsDto
+				data: updateCustomerDemographicsDto
 			});
 			return await handleResponse(data);
 		} catch (err) {

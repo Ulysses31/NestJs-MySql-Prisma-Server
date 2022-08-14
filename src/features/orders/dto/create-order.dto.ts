@@ -46,4 +46,7 @@ export class CreateOrderDto {
 
 	@ApiProperty({ type: String })
 	ShipCountry: string;
+
+	@ApiProperty({ type: Date })
+	UpdatedAt: Date;
 }
